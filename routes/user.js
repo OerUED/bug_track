@@ -6,6 +6,7 @@ var controller = require('../controllers/user');
 
 var router = express.Router();
 //后台管理
+router.post('/login',controller.login);
 router.post('/add',auth.hasRole,controller.add);
 router.get('/list',auth.hasRole,controller.list);
 router.put('/:id/update', auth.hasRole, controller.update);
