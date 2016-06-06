@@ -21,10 +21,10 @@ exports.add = function(req, res, next) {
 }
 
 exports.list = function(req, res) {
-    var size = parseInt(req.body.size) || 20;
-    var page = parseInt(req.body.page) || 1;
+    var size = parseInt(req.query.size) || 20;
+    var page = parseInt(req.query.page) || 1;
     page = page > 0 ? page : 1;
-    var keyword = req.body.keyword ? req.body.keyword : '';
+    var keyword = req.query.keyword ? req.query.keyword : '';
 
     var options = {
         skip: (page - 1) * size,
