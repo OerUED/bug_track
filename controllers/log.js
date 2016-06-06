@@ -6,7 +6,7 @@ var response = require('../tools/tool').callback;
 exports.add = function(req, res, next) {
     var obj = req.body;
     var clientHost = req.headers.origin.replace(/http:\/\//, '').split(':')[0];
-    var query = { host: clientHost, appKey: obj.appKey };
+    var query = { appKey: obj.appKey };
     domain.count(query).then(_res => {
         if (_res > 0) {
             log.save(obj).then(function(data) {
@@ -15,7 +15,7 @@ exports.add = function(req, res, next) {
                 response(req, res, err, null);
             });
         } else {
-            res.json({code: 201, content:'appKey不匹配'});
+            res.json({ code: 201, content: 'appKey不匹配' });
         }
     });
 }
