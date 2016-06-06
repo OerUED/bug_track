@@ -1,13 +1,22 @@
 var config = require('../config');
 var log = require('../proxy/log');
+var domain = require('../proxy/domain');
 var response = require('../tools/tool').callback;
 
 exports.add = function(req, res, next) {
     var obj = req.body;
-    log.save(obj).then(function(data) {
-        response(req, res, null, data);
-    }).catch(function(err) {
-        response(req, res, err, null);
+    var clientHost = req.headers.origin.replace(/http:\/\//, '').split(':')[0];
+    var query = { host: clientHost, appKey: obj.appKey };
+    domain.count(query).then(_res => {
+        if (_res > 0) {
+            log.save(obj).then(function(data) {
+                response(req, res, null, data);
+            }).catch(function(err) {
+                response(req, res, err, null);
+            });
+        } else {
+            res.json({code: 201, content:'appKey不匹配'});
+        }
     });
 }
 
@@ -62,9 +71,9 @@ exports.delete = function(req, res) {
 
 exports.get = function(req, res) {
     var id = req.params.id;
-    log.get(id).then(function(data){
+    log.get(id).then(function(data) {
         response(req, res, null, data);
-    }).catch(function(err){
+    }).catch(function(err) {
         response(req, res, err, null);
     });
 }
