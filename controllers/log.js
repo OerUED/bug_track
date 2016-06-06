@@ -4,7 +4,7 @@ var response = require('../tools/tool').callback;
 
 exports.add = function(req, res, next) {
     var obj = req.body;
-
+    console.log(obj);
     log.save(obj).then(function(data) {
         response(req, res, null, data);
     }).catch(function(err) {

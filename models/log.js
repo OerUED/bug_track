@@ -3,9 +3,7 @@ var Schema = mongoose.Schema;
 var ObjectId = Schema.ObjectId;
 
 var LogSchema = Schema({
-  appkey:{
-    type: String
-  },
+  appKey: String,
   type: Number,
   level: Number,
   content: String,
