@@ -5,12 +5,12 @@ var response = require('../tools/tool').callback;
 
 exports.add = function(req, res, next) {
     var obj = req.body;
-    var clientHost = req.headers.origin.replace(/http:\/\//, '').split(':')[0];
+    // var clientHost = req.headers.origin.replace(/http:\/\//, '').split(':')[0];
     var query = { appKey: obj.appKey };
     domain.count(query).then(_res => {
         if (_res > 0) {
             log.save(obj).then(function(data) {
-                response(req, res, null, data);
+                response(req, res, null, {});
             }).catch(function(err) {
                 response(req, res, err, null);
             });
