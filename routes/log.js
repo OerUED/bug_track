@@ -9,5 +9,6 @@ var router = express.Router();
 router.post('/add',controller.add);
 router.get('/list',auth.hasRole,controller.list);
 router.delete('/:id', auth.hasRole, controller.delete);
+router.delete('/appKey/:appKey',auth.hasRole, controller.deleteByAppKey)
 router.get('/:id/info', auth.hasRole, controller.get);
 module.exports = router;

@@ -75,4 +75,13 @@ LogDAO.prototype.remove = function(id) {
     });
 }
 
+//删除类型根据搜索条件
+LogDAO.prototype.removeByAppKey = function(query) {
+    return new Promise(function(resolve, reject) {
+        Log.remove(query, function(err, data) {
+            promiseAct(resolve, reject, err);
+        });
+    });
+}
+
 module.exports = new LogDAO();
