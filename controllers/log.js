@@ -62,7 +62,9 @@ exports.list = function(req, res) {
 
 exports.delete = function(req, res) {
     var id = req.params.id;
-    log.remove(id).then(function(data) {
+    log.removeByQuery({
+        _id: id
+    }).then(function(data) {
         response(req, res, null, data);
     }).catch(function(err) {
         response(req, res, err, null);
@@ -71,7 +73,7 @@ exports.delete = function(req, res) {
 
 exports.deleteByAppKey = function(req,res){
     var appKey = req.params.appKey;
-    log.removeByAppKey({
+    log.removeByQuery({
         appKey: appKey
     }).then(function(data) {
         response(req, res, null, data);

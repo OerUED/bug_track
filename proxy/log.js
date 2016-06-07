@@ -64,19 +64,8 @@ LogDAO.prototype.get = function(id) {
     });
 }
 
-//删除类型
-LogDAO.prototype.remove = function(id) {
-    return new Promise(function(resolve, reject) {
-        Log.remove({
-            _id: id
-        }, function(err, data) {
-            promiseAct(resolve, reject, err);
-        });
-    });
-}
-
 //删除类型根据搜索条件
-LogDAO.prototype.removeByAppKey = function(query) {
+LogDAO.prototype.removeByQuery = function(query) {
     return new Promise(function(resolve, reject) {
         Log.remove(query, function(err, data) {
             promiseAct(resolve, reject, err);
