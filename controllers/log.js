@@ -15,7 +15,7 @@ exports.add = function(req, res, next) {
                 response(req, res, err, null);
             });
         } else {
-            res.json({ code: 201, content: 'appKey不匹配' });
+            res.json({ status: 1, code: 201, content: 'appKey不匹配' });
         }
     });
 }
