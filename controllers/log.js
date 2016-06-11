@@ -38,7 +38,7 @@ exports.list = function(req, res) {
     var query = {};
 
     if (keyword) {
-        query['host'] = new RegExp(keyword); //模糊查询参数
+        query['content'] = new RegExp(keyword); //模糊查询参数
     }
 
     if (level) {
