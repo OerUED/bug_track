@@ -82,6 +82,19 @@ exports.deleteByAppKey = function(req,res){
     });
 }
 
+exports.deleteByType = function(req,res){
+    // type: 1 删除页面错误 0 删除服务端错误
+    var type = req.params.type;
+    var content = type == 1 ? new RegExp('pageError') : new RegExp('reqSerError')
+    log.removeByQuery({
+        content: content
+    }).then(function(data) {
+        response(req, res, null, data);
+    }).catch(function(err) {
+        response(req, res, err, null);
+    });
+}
+
 exports.get = function(req, res) {
     var id = req.params.id;
     log.get(id).then(function(data) {
