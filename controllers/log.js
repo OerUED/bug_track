@@ -28,6 +28,8 @@ exports.list = function(req, res) {
     var level = req.query.level;
     var type = req.query.type;
     var appKey = req.query.appKey;
+    var startTime = req.query.startTime;
+    var endTime = req.query.endTime;
 
     var options = {
         skip: (page - 1) * size,
@@ -52,6 +54,23 @@ exports.list = function(req, res) {
     if (appKey) {
         query['appKey'] = appKey;
     }
+
+    if(!startTime && endTime) {
+        startTime = '1970-01-01 00:00';
+    }
+
+    if(!endTime && startTime) {
+        endTime = '3000-01-01 00:00';
+    }
+
+    if(startTime && endTime){
+        query['createAt'] = {
+            '$gte': new Date(startTime),
+            '$lt':new Date(endTime)
+        };
+    }
+
+
 
     log.list(query, options).then(function(data) {
         response(req, res, null, data);
